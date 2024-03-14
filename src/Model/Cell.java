@@ -1,7 +1,7 @@
 package Model;
 
 public class Cell {
-    private int neighboorMineNr;
+    private int neighbourMineNr;
     private int xCoordinate;
     private int yCoordinate;
     private CellState cellState;
@@ -13,6 +13,12 @@ public class Cell {
         this.yCoordinate = yCoordinate;
         this.myPlayingView = myPlayingView;
         this.cellState = CellState.coverd;
-        this.neighboorMineNr = myPlayingView.calculateNeighbourMinesNr(this);
     }
+
+    public int getNeighbourMineNr() {
+        neighbourMineNr =  myPlayingView.calculateNeighbourMinesNr(this);
+        return neighbourMineNr;
+    }
+
+
 }
