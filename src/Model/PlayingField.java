@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class PlayingView {
+public class PlayingField {
     private int xDimension;
     private int yDimension;
 
@@ -10,7 +10,7 @@ public class PlayingView {
     private ArrayList<ArrayList<Cell>> fieldArray;
     private GameState gameState;
 
-    public PlayingView(int xDimension, int yDimension, int minesNr) {
+    public PlayingField(int xDimension, int yDimension, int minesNr) {
         this.xDimension = xDimension;
         this.yDimension = yDimension;
         this.minesNr = minesNr;
