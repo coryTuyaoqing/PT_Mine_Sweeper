@@ -1,12 +1,12 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Cell {
     private int neighbourMineNr;
     private int xCoordinate;
     private int yCoordinate;
     private CellState cellState;
-
-    private String type;
 
     private PlayingField myPlayingView;
 
@@ -14,12 +14,11 @@ public class Cell {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.myPlayingView = myPlayingView;
-        this.cellState = CellState.coverd;
+        this.cellState = CellState.covered;
     }
 
-    public int setNeighbourMineNr() {
-        neighbourMineNr = myPlayingView.calculateNeighbourMinesNr(this);
-        return neighbourMineNr;
+    public void setNeighbourMineNr(int neighbourMineNr) {
+        this.neighbourMineNr = neighbourMineNr;
     }
 
     public void setCellState(CellState cellState){
@@ -30,11 +29,11 @@ public class Cell {
         return neighbourMineNr;
     }
 
-    public int getxCoordinate() {
+    public int getXCoordinate() {
         return xCoordinate;
     }
 
-    public int getyCoordinate() {
+    public int getYCoordinate() {
         return yCoordinate;
     }
 
@@ -42,7 +41,23 @@ public class Cell {
         return cellState;
     }
 
-    public String getType(){
-        return type;
+    public PlayingField getMyPlayingView() {
+        return myPlayingView;
+    }
+    public void calculateNeighbourMinesNr(){
+        ArrayList<Cell> neighbourMines = new ArrayList<>();
+        for(Cell cell: myPlayingView.getNeighbourCells(this)){
+            if(cell.getClass().equals(Bomb.class)){
+                neighbourMines.add(cell);
+            }
+        }
+        setNeighbourMineNr(neighbourMines.size());
+    }
+    public boolean open(){
+        return false;
+    }
+
+    public void flag(){
+        setCellState(CellState.flagged);
     }
 }

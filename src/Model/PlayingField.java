@@ -1,7 +1,5 @@
 package Model;
 
-import Controller.GameState;
-
 import java.util.ArrayList;
 
 public class PlayingField {
@@ -35,37 +33,49 @@ public class PlayingField {
     }
 
     public void RandomMines(){
-        int x = 0;
-        int y = 0;
-        for (int i = 0; i < minesNr; i++) {
-            x = (int) (Math.random() * xDimension);
-            y = (int) (Math.random() * yDimension);
-            if (fieldArray.get(x).get(y) instanceof Bomb) {
-                i--;
-            } else {
-                fieldArray.get(x).set(y, new Bomb(x, y, this));
+//        int x = 0;
+//        int y = 0;
+//        for (int i = 0; i < minesNr; i++) {
+//            x = (int) (Math.random() * xDimension);
+//            y = (int) (Math.random() * yDimension);
+//            if (fieldArray.get(x).get(y) instanceof Bomb) {
+//                i--;
+//            } else {
+//                fieldArray.get(x).set(y, new Bomb(x, y, this));
+//            }
+//        }
+//        for (int i = 0 ; i < xDimension; i++){
+//            for (int j = 0; j < yDimension; j++){
+//                System.out.println(fieldArray.get(i).get(j));
+//            }
+//        }
+        //test
+        for (int i = 0 ; i < yDimension; i++){
+            fieldArray.add(new ArrayList<>());
+            for (int j = 0; j < xDimension; j++){
+                if(j == 3 && i == 2)
+                    fieldArray.get(i).add(new Bomb(i, j, this));
+                else fieldArray.get(i).add(new EmptyCell(i, j, this));
             }
         }
-        for (int i = 0 ; i < xDimension; i++){
-            for (int j = 0; j < yDimension; j++){
-                System.out.println(fieldArray.get(i).get(j));
-            }
-        }
+
     }
 
-    public int calculateNeighbourMinesNr(Cell cell){
-        int Celx = cell.getxCoordinate();
-        int Cely = cell.getyCoordinate();
-        int count = 0;
-        for (int i = Celx - 1; i <= Celx + 1; i++){
-            for (int j = Cely - 1; j <= Cely + 1; j++){
-                if (i >= 0 && i < xDimension && j >= 0 && j < yDimension){
-                    if (fieldArray.get(i).get(j) instanceof Bomb){
-                        count++;
-                    }
+    public ArrayList<Cell> getNeighbourCells(Cell cell){
+        int xCord = cell.getXCoordinate();
+        int yCord = cell.getYCoordinate();
+        ArrayList<Cell> neighbourCells = new ArrayList<>();
+        for(ArrayList<Cell> cellArrayList: fieldArray){
+            for(Cell c: cellArrayList){
+                if(c == cell)
+                    continue;
+                int xC = c.getXCoordinate();
+                int yC = c.getYCoordinate();
+                if(xC >= xCord-1 && xC <= xCord+1 && yC >= yCord-1 && yC <= yCord+1){
+                        neighbourCells.add(c);
                 }
             }
         }
-        return count;
+        return neighbourCells;
     }
 }

@@ -2,14 +2,58 @@ package View;
 
 import Controller.GameController;
 import Controller.GameMode;
+import Model.Cell;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Visualizer {
     private GameController myGameController;
 
-    public void drawPlayingField() {
+    public Visualizer(GameController gameController){
+        myGameController = gameController;
+    }
 
+    public void drawPlayingField() {
+        System.out.println();
+        System.out.println("""
+        mines cell: *
+        closed cell: 口
+        empty cell: nothing
+        flag cell: />
+        """);
+        System.out.print("\t\t");
+        ArrayList<ArrayList<Cell>> fieldArray = myGameController.getMyPlayingField().getFieldArray();
+        for(int i=0; i<fieldArray.get(0).size();i++){
+            System.out.print(i + "\t");
+        }
+        System.out.println();
+        System.out.println();
+        int a = 0;
+        for(ArrayList<Cell> cellArrayList: fieldArray){
+            System.out.print(a++);
+            System.out.print("\t\t");
+            for(Cell cell: cellArrayList){
+                switch (cell.getCellState()){
+                    case covered:
+                        System.out.print("口\t");
+                        break;
+                    case revealed:
+                        if(cell.getNeighbourMineNr() == 0){
+                            System.out.print("\t");
+                        }
+                        else{
+                            System.out.print(cell.getNeighbourMineNr() + "\t");
+                        }
+                        break;
+                    case flagged:
+                        System.out.print("/>\t");
+                        break;
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     public String getInput() {

@@ -1,7 +1,7 @@
 package Model;
 
 public enum CellState {
-    coverd,
+    covered,
     revealed,
-    flaged
+    flagged
 }

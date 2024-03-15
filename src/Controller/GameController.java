@@ -1,10 +1,7 @@
 package Controller;
 
-import Model.CellState;
-import Model.PlayingField;
+import Model.*;
 import View.Visualizer;
-
-import java.util.Scanner;
 
 public class GameController {
     private GameState gameState;
@@ -12,7 +9,8 @@ public class GameController {
     private PlayingField myPlayingField;
 
     public GameController(){
-        myVisualizer = new Visualizer();
+        gameState = GameState.playing;
+        myVisualizer = new Visualizer(this);
         myVisualizer.printTitle();
         buildPlayingField();
     }
@@ -34,21 +32,35 @@ public class GameController {
         int yCord = Integer.parseInt(userInstruction[2]);
         switch (action){
             case "OPEN":
-                open(xCord, yCord);
+                boolean openResult = openCell(xCord, yCord);
+                if(!openResult)
+                    gameState = GameState.youLose;
                 break;
             case "FLAG":
-                flag(xCord,yCord);
+                flagCell(xCord,yCord);
+        }
+        myVisualizer.drawPlayingField();
+    }
+
+    public void flagCell(int xCord, int yCord){
+        Cell cell = myPlayingField.getFieldArray().get(yCord).get(xCord);
+        cell.flag();
+    }
+
+    public boolean openCell(int xCord, int yCord){
+        Cell cell = myPlayingField.getFieldArray().get(yCord).get(xCord);
+        return cell.open();
+    }
+    public void judge() {
+        if(gameState == GameState.youLose){
+            showAllMines();
+        }
+        else if(gameState == GameState.playing){
+            //do something to check if the player win ...
         }
     }
 
-    public void flag(int xCord, int yCord){
-        myPlayingField.getFieldArray().get(xCord).get(yCord).setCellState(CellState.flaged);
-    }
-
-    public void open(int xCord, int yCord){
-        myPlayingField.getFieldArray().get(xCord).get(yCord).setCellState(CellState.revealed);
-    }
-    public void judge() {
+    private void showAllMines() {
     }
 
     public void buildPlayingField(){
@@ -78,24 +90,17 @@ public class GameController {
                 yDim = 9;
                 minesNr = 10;
         }
-//        System.out.println(xDim);
-//        System.out.println(yDim);
-//        System.out.println(minesNr);
         myPlayingField = new PlayingField(xDim, yDim, minesNr);
+        myPlayingField.RandomMines();
         myVisualizer.drawPlayingField();
     }
 
 
     public static void main(String[] args) {
         GameController gameController = new GameController();
-        gameController.nextStep();
-
-//        while(gameController.getGameState() == GameState.playing){
-////            visualizer.drawPlayingField();
-////            visualizer.getInput();
-////            visualizer.parseUserInput();
-//            gameController.updateGame();
-//            gameController.judge();
-//        }
+        while(gameController.getGameState() == GameState.playing){
+            gameController.nextStep();
+            gameController.judge();
+        }
     }
 }
