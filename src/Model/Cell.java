@@ -6,6 +6,8 @@ public class Cell {
     private int yCoordinate;
     private CellState cellState;
 
+    private String type;
+
     private PlayingField myPlayingView;
 
     public Cell(int xCoordinate, int yCoordinate, PlayingField myPlayingView) {
@@ -22,5 +24,25 @@ public class Cell {
 
     public void setCellState(CellState cellState){
         this.cellState = cellState;
+    }
+
+    public int getNeighbourMineNr() {
+        return neighbourMineNr;
+    }
+
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    public CellState getCellState() {
+        return cellState;
+    }
+
+    public String getType(){
+        return type;
     }
 }

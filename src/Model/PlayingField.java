@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.GameState;
+
 import java.util.ArrayList;
 
 public class PlayingField {

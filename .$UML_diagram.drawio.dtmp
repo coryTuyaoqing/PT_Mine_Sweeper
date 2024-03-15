@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-03-14T21:14:37.848Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="LUB9IMynJ3x41UkqQXoq" version="23.1.5" type="device">
+<mxfile host="Electron" modified="2024-03-15T15:50:20.227Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="ZjBkUweayBJjBDYoaGEO" version="23.1.5" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="721" dy="395" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="664" dy="378" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -174,7 +174,7 @@
         <mxCell id="iSGJ1RGGotwM2k6XSL8e-2" value="+buildPlayingField(int xDim, int yDim, int minesNr&lt;span style=&quot;background-color: initial;&quot;&gt;): void&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="NFtFXTmuyEwcGe3_4Hr9-68" vertex="1">
           <mxGeometry y="216" width="240" height="34" as="geometry" />
         </mxCell>
-        <mxCell id="iSGJ1RGGotwM2k6XSL8e-10" value="+updateGame(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="NFtFXTmuyEwcGe3_4Hr9-68" vertex="1">
+        <mxCell id="iSGJ1RGGotwM2k6XSL8e-10" value="+nextStep():void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="NFtFXTmuyEwcGe3_4Hr9-68" vertex="1">
           <mxGeometry y="250" width="240" height="20" as="geometry" />
         </mxCell>
         <mxCell id="iSGJ1RGGotwM2k6XSL8e-3" value="+judge(): GameState" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="NFtFXTmuyEwcGe3_4Hr9-68" vertex="1">
