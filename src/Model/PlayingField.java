@@ -32,33 +32,26 @@ public class PlayingField {
         return fieldArray;
     }
 
+
     public void RandomMines(){
-//        int x = 0;
-//        int y = 0;
-//        for (int i = 0; i < minesNr; i++) {
-//            x = (int) (Math.random() * xDimension);
-//            y = (int) (Math.random() * yDimension);
-//            if (fieldArray.get(x).get(y) instanceof Bomb) {
-//                i--;
-//            } else {
-//                fieldArray.get(x).set(y, new Bomb(x, y, this));
-//            }
-//        }
-//        for (int i = 0 ; i < xDimension; i++){
-//            for (int j = 0; j < yDimension; j++){
-//                System.out.println(fieldArray.get(i).get(j));
-//            }
-//        }
-        //test
+        //Initialize the fieldArray with EmptyCell objects
         for (int i = 0 ; i < yDimension; i++){
             fieldArray.add(new ArrayList<>());
             for (int j = 0; j < xDimension; j++){
-                if(j == 3 && i == 2)
-                    fieldArray.get(i).add(new Bomb(i, j, this));
-                else fieldArray.get(i).add(new EmptyCell(i, j, this));
+                fieldArray.get(i).add(new EmptyCell(i, j, this));
             }
         }
 
+        // Randomly place the Bomb objects
+        for (int i = 0; i < minesNr; i++) {
+            int x = (int) (Math.random() * xDimension);
+            int y = (int) (Math.random() * yDimension);
+            if (fieldArray.get(y).get(x) instanceof Bomb) {
+                i--;
+            } else {
+                fieldArray.get(y).set(x, new Bomb(y, x, this));
+            }
+        }
     }
 
     public ArrayList<Cell> getNeighbourCells(Cell cell){
