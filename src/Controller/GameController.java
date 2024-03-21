@@ -104,9 +104,9 @@ public class GameController {
     }
 
     public void buildPlayingField(){
-        int xDim = 0;
-        int yDim = 0;
-        int minesNr = 0;
+        int xDim;
+        int yDim;
+        int minesNr;
         switch (myVisualizer.getGameMode()){
             case Beginner:
                 xDim = 8;
