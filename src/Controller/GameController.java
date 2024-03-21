@@ -16,6 +16,7 @@ public class GameController {
         myVisualizer = new Visualizer(this);
         myVisualizer.printTitle();
         buildPlayingField();
+        History = new ArrayList<>();
     }
     public PlayingField getMyPlayingField() {
         return myPlayingField;
@@ -42,7 +43,7 @@ public class GameController {
                 myVisualizer.drawPlayingField();
                 return;
             case "UN_CHEAT":
-            case "un_cheat":
+            case "uncheat":
                 RecoverPlayingField();
                 myVisualizer.drawPlayingField();
                 return;
@@ -132,11 +133,11 @@ public class GameController {
         for(int i = 0; i < myPlayingField.getyDimension(); i++) {
             for (int j = 0; j < myPlayingField.getxDimension(); j++) {
                 Cell cell = myPlayingField.getFieldArray().get(i).get(j);
-                if(cell instanceof Bomb){
-                    if(cell.getCellState() == CellState.flagged){
-                        History.add(cell);
-                    }
+                if(cell instanceof Bomb && cell.getCellState() != CellState.flagged){
                     cell.setCellState(CellState.revealed);
+                }
+                if(cell.getCellState() == CellState.flagged){
+                    History.add(cell);
                 }
             }
         }
@@ -147,7 +148,7 @@ public class GameController {
         for(int i = 0; i < myPlayingField.getyDimension(); i++) {
             for (int j = 0; j < myPlayingField.getxDimension(); j++) {
                 Cell cell = myPlayingField.getFieldArray().get(i).get(j);
-                if (History.get(count).equals(cell)) {
+                if (cell.equals(History.get(count))){
                     cell.setCellState(CellState.flagged);
                     count++;
                 }
