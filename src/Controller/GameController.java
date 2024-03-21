@@ -117,13 +117,12 @@ public class GameController {
         for(int i = 0; i < myPlayingField.getyDimension(); i++) {
             for (int j = 0; j < myPlayingField.getxDimension(); j++) {
                 Cell cell = myPlayingField.getFieldArray().get(i).get(j);
-                if (cell instanceof Bomb) {
-                    if (cell == History.get(count)) {
-                        cell.setCellState(CellState.flagged);
-                        count++;
-                    } else {
-                        cell.setCellState(CellState.covered);
-                    }
+                if (cell == History.get(count)) {
+                    cell.setCellState(CellState.flagged);
+                    count++;
+                }
+                else {
+                    cell.setCellState(CellState.covered);
                 }
             }
         }
