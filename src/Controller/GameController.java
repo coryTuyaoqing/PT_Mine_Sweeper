@@ -38,11 +38,20 @@ public class GameController {
                 myVisualizer.printHelp();
                 return;
             case "cheat":
-            case "CHEAT":
                 RevealPlayingField();
                 myVisualizer.drawPlayingField();
                 return;
-            case "UN_CHEAT":
+            case "CHEAT":
+                for(ArrayList<Cell> cellArrayList: myPlayingField.getFieldArray()){
+                    for(Cell cell: cellArrayList){
+                        if(cell instanceof EmptyCell){
+                            cell.setCellState(CellState.revealed);
+                        }
+                    }
+                }
+                myVisualizer.drawPlayingField();
+                return;
+            case "UNCHEAT":
             case "uncheat":
                 RecoverPlayingField();
                 myVisualizer.drawPlayingField();
@@ -87,11 +96,8 @@ public class GameController {
                 }
             }
             for(Cell cell: emptyCell){
-                if(cell.getCellState() == CellState.revealed) {
-                }
-                else{
+                if(cell.getCellState() != CellState.revealed)
                     return;
-                }
             }
             gameState = GameState.win;
         }
@@ -103,14 +109,19 @@ public class GameController {
         int minesNr = 0;
         switch (myVisualizer.getGameMode()){
             case Beginner:
-                xDim = 9;
-                yDim = 9;
+                xDim = 8;
+                yDim = 8;
                 minesNr = 10;
                 break;
             case Intermediate:
                 xDim = 16;
                 yDim = 16;
                 minesNr = 40;
+                break;
+            case Hard:
+                xDim = 30;
+                yDim = 16;
+                minesNr = 99;
                 break;
             case Custom:
                 myVisualizer.askForCustom();
@@ -153,7 +164,16 @@ public class GameController {
     }
 
 
-
+    public void gameSettlement(){
+        if(gameState == GameState.youLose){
+            RevealPlayingField();
+            myVisualizer.drawPlayingField();
+            System.out.println("hit a mine!\nyou lose!\ngame over!");
+        }
+        else if(gameState == GameState.win){
+            System.out.println("you win!\ngame over!");
+        }
+    }
 
     public static void main(String[] args) {
         GameController gameController = new GameController();
@@ -161,5 +181,6 @@ public class GameController {
             gameController.nextStep();
             gameController.judge();
         }
+        gameController.gameSettlement();
     }
 }

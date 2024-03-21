@@ -5,7 +5,6 @@ import Controller.GameMode;
 import Model.Bomb;
 import Model.Cell;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -98,7 +97,7 @@ public class Visualizer {
                 To open a cell, use:
                 OPEN <xCoordinate> <yCoordinate>
 
-                To flag a cell, use:
+                To flag or unflag a cell, use:
                 FLAG <xCoordinate> <yCoordinate>
                 """);
     }
@@ -109,7 +108,8 @@ public class Visualizer {
                 Please choose game mode:
                 1. Beginner
                 2. Intermediate
-                3. Custom
+                3. Hard
+                4. Custom
                 """);
     }
 

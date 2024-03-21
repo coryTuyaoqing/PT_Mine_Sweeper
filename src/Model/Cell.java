@@ -58,6 +58,11 @@ public class Cell {
     }
 
     public void flag(){
-        setCellState(CellState.flagged);
+        if(cellState == CellState.covered){
+            setCellState(CellState.flagged);
+        }
+        else if(cellState == CellState.flagged){
+            setCellState(CellState.covered);
+        }
     }
 }

@@ -1,5 +1,5 @@
 package Controller;
 
 public enum GameMode {
-    Beginner, Intermediate, Custom
+    Beginner, Intermediate, Hard, Custom
 }
