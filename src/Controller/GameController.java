@@ -9,7 +9,7 @@ public class GameController {
     private GameState gameState;
     private Visualizer myVisualizer;
     private PlayingField myPlayingField;
-    private ArrayList<Cell> History;
+    private ArrayList<ArrayList<CellState>> History;
 
     public GameController(){
         gameState = GameState.playing;
@@ -131,30 +131,22 @@ public class GameController {
 
     public void RevealPlayingField(){
         for(int i = 0; i < myPlayingField.getyDimension(); i++) {
+            History.add(new ArrayList<>());
             for (int j = 0; j < myPlayingField.getxDimension(); j++) {
                 Cell cell = myPlayingField.getFieldArray().get(i).get(j);
-                if(cell instanceof Bomb && cell.getCellState() != CellState.flagged){
+                History.get(i).add(cell.getCellState());
+                if(cell instanceof Bomb && cell.getCellState() != CellState.flagged) {
                     cell.setCellState(CellState.revealed);
-                }
-                if(cell.getCellState() == CellState.flagged){
-                    History.add(cell);
                 }
             }
         }
     }
 
     public void RecoverPlayingField(){
-        int count = 0;
         for(int i = 0; i < myPlayingField.getyDimension(); i++) {
             for (int j = 0; j < myPlayingField.getxDimension(); j++) {
                 Cell cell = myPlayingField.getFieldArray().get(i).get(j);
-                if (cell.equals(History.get(count))){
-                    cell.setCellState(CellState.flagged);
-                    count++;
-                }
-                else {
-                    cell.setCellState(CellState.covered);
-                }
+                cell.setCellState(History.get(i).get(j));
             }
         }
         History.clear();
