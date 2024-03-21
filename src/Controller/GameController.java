@@ -31,16 +31,35 @@ public class GameController {
     public void nextStep(){
         String[] userInstruction = myVisualizer.getInstruction();
         String action = userInstruction[0];
+        switch (action){
+            case "help":
+            case "HELP":
+                myVisualizer.printHelp();
+                return;
+            case "cheat":
+            case "CHEAT":
+                RevealPlayingField();
+                myVisualizer.drawPlayingField();
+                return;
+            case "UN_CHEAT":
+            case "un_cheat":
+                RecoverPlayingField();
+                myVisualizer.drawPlayingField();
+                return;
+        }
         int xCord = Integer.parseInt(userInstruction[1]);
         int yCord = Integer.parseInt(userInstruction[2]);
         switch (action){
+            case "open":
             case "OPEN":
                 boolean openResult = openCell(xCord, yCord);
                 if(!openResult)
                     gameState = GameState.youLose;
                 break;
+            case "flag":
             case "FLAG":
                 flagCell(xCord,yCord);
+                break;
         }
         myVisualizer.drawPlayingField();
     }
@@ -54,16 +73,27 @@ public class GameController {
         Cell cell = myPlayingField.getFieldArray().get(yCord).get(xCord);
         return cell.open();
     }
-    public void judge() {
-        if(gameState == GameState.youLose){
-            showAllMines();
-        }
-        else if(gameState == GameState.playing){
+    public void judge() { //todo
+         if(gameState == GameState.playing){
             //do something to check if the player win ...
+            //getEmptyCell
+            ArrayList<Cell> emptyCell = new ArrayList<>();
+            for(ArrayList<Cell> cellArrayList: myPlayingField.getFieldArray()){
+                for(Cell cell: cellArrayList){
+                    if(cell instanceof EmptyCell){
+                        emptyCell.add(cell);
+                    }
+                }
+            }
+            for(Cell cell: emptyCell){
+                if(cell.getCellState() == CellState.revealed) {
+                }
+                else{
+                    return;
+                }
+            }
+            gameState = GameState.win;
         }
-    }
-
-    private void showAllMines() {
     }
 
     public void buildPlayingField(){
@@ -117,7 +147,7 @@ public class GameController {
         for(int i = 0; i < myPlayingField.getyDimension(); i++) {
             for (int j = 0; j < myPlayingField.getxDimension(); j++) {
                 Cell cell = myPlayingField.getFieldArray().get(i).get(j);
-                if (cell == History.get(count)) {
+                if (History.get(count).equals(cell)) {
                     cell.setCellState(CellState.flagged);
                     count++;
                 }

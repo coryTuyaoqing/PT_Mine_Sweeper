@@ -2,8 +2,10 @@ package View;
 
 import Controller.GameController;
 import Controller.GameMode;
+import Model.Bomb;
 import Model.Cell;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,7 +41,10 @@ public class Visualizer {
                         System.out.print("口\t");
                         break;
                     case revealed:
-                        if(cell.getNeighbourMineNr() == 0){
+                        if(cell instanceof Bomb){
+                            System.out.print("*\t");
+                        }
+                        else if(cell.getNeighbourMineNr() == 0){
                             System.out.print("\t");
                         }
                         else{
