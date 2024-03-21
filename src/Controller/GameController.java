@@ -3,10 +3,13 @@ package Controller;
 import Model.*;
 import View.Visualizer;
 
+import java.util.ArrayList;
+
 public class GameController {
     private GameState gameState;
     private Visualizer myVisualizer;
     private PlayingField myPlayingField;
+    private ArrayList<Cell> History;
 
     public GameController(){
         gameState = GameState.playing;
@@ -94,6 +97,40 @@ public class GameController {
         myPlayingField.RandomMines();
         myVisualizer.drawPlayingField();
     }
+
+    public void RevealPlayingField(){
+        for(int i = 0; i < myPlayingField.getyDimension(); i++) {
+            for (int j = 0; j < myPlayingField.getxDimension(); j++) {
+                Cell cell = myPlayingField.getFieldArray().get(i).get(j);
+                if(cell instanceof Bomb){
+                    if(cell.getCellState() == CellState.flagged){
+                        History.add(cell);
+                    }
+                    cell.setCellState(CellState.revealed);
+                }
+            }
+        }
+    }
+
+    public void RecoverPlayingField(){
+        int count = 0;
+        for(int i = 0; i < myPlayingField.getyDimension(); i++) {
+            for (int j = 0; j < myPlayingField.getxDimension(); j++) {
+                Cell cell = myPlayingField.getFieldArray().get(i).get(j);
+                if (cell instanceof Bomb) {
+                    if (cell == History.get(count)) {
+                        cell.setCellState(CellState.flagged);
+                        count++;
+                    } else {
+                        cell.setCellState(CellState.covered);
+                    }
+                }
+            }
+        }
+        History.clear();
+    }
+
+
 
 
     public static void main(String[] args) {
